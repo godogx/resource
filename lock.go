@@ -104,7 +104,16 @@ func (s *Lock) Register(sc *godog.ScenarioContext) {
 			}
 		}
 
-		close(currentLock)
+		// Godog v0.12.5 has an issue of calling after scenario multiple times when there are undefined steps.
+		// This is a workaround.
+		closeIfNot := func() {
+			defer func() {
+				_ = recover() // nolint: errcheck // Only close of the closed channel can panic here.
+			}()
+			close(currentLock)
+		}
+
+		closeIfNot()
 
 		if len(errs) > 0 {
 			return ctx, errors.New(strings.Join(errs, ", ")) // nolint:goerr113

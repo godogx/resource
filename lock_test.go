@@ -48,7 +48,7 @@ func (l *lock) setup(s *godog.ScenarioContext) {
 		return nil
 	})
 	s.Step("^I sleep$", func() {
-		time.Sleep(time.Microsecond * time.Duration(rand.Int63n(10000)+1000)) // nolint:gosec
+		time.Sleep(time.Microsecond * time.Duration(rand.Int63n(10000)+1000)) //nolint:gosec
 	})
 	s.Step("^I sleep longer$", func() {
 		time.Sleep(time.Millisecond * 100)

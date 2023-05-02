@@ -108,7 +108,7 @@ func (s *Lock) Register(sc *godog.ScenarioContext) {
 		// This is a workaround.
 		closeIfNot := func() {
 			defer func() {
-				_ = recover() // nolint: errcheck // Only close of the closed channel can panic here.
+				_ = recover() //nolint: errcheck // Only close of the closed channel can panic here.
 			}()
 			close(currentLock)
 		}
@@ -116,7 +116,7 @@ func (s *Lock) Register(sc *godog.ScenarioContext) {
 		closeIfNot()
 
 		if len(errs) > 0 {
-			return ctx, errors.New(strings.Join(errs, ", ")) // nolint:goerr113
+			return ctx, errors.New(strings.Join(errs, ", ")) //nolint:goerr113
 		}
 
 		return ctx, nil

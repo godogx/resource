@@ -37,6 +37,10 @@ func NewLock(onRelease func(name string) error) *Lock {
 	}
 }
 
+func (s *Lock) acquireLock() {
+
+}
+
 // Acquire acquires resource lock for the given key and returns true.
 //
 // If the lock is already held by another context, it waits for the lock to be released.
@@ -73,6 +77,8 @@ func (s *Lock) Acquire(ctx context.Context, name string) (bool, error) {
 
 // Register adds hooks to scenario context.
 func (s *Lock) Register(sc *godog.ScenarioContext) {
+	//sc.Step()
+
 	sc.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
 		lock := make(chan struct{})
 
